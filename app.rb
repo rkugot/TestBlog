@@ -26,7 +26,7 @@ configure do
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		created_date DATE,
 		content TEXT,
-		post_id integer
+		post_id INTEGER
 	)'
 end
 
@@ -58,9 +58,11 @@ get '/post/:post_id' do
 	# получаем переменную из url'a
 	post_id = params[:post_id]
 
-	results = @db.execute "select * from Posts where id = #{post_id}"
+	results = @db.execute "select * from Posts where id = ?",[post_id.to_i]
 
 	@row = results[0]
+
+	@comments = @db.execute "select * from Comments where post_id = ?",[post_id.to_i]
 
 	erb :details
 end
@@ -68,12 +70,16 @@ end
 post '/post/:post_id' do
 	post_id = params[:post_id]
 	comment = params[:comment]
-	results = @db.execute "select * from Posts where id = #{post_id}"
+	results = @db.execute "select * from Posts where id = ?",[post_id.to_i]
 	@row = results[0]
+
 	if comment.strip.empty?
 		@error = 'Type comment'
 		return erb :details
 	end
-	erb "Comment added"
+
+	@db.execute 'insert into Comments (created_date,content,post_id) values (datetime(),?,?)',[comment,post_id.to_i]
+	
+	redirect to "post/#{post_id}"
 end
 
