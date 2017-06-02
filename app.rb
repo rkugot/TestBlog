@@ -45,3 +45,15 @@ post '/new' do
   	redirect to '/'
 
 end
+
+get '/post/:post_id' do
+
+	# получаем переменную из url'a
+	post_id = params[:post_id]
+
+	results = @db.execute "select * from Posts where id = #{post_id}"
+
+	@row = results[0]
+
+	erb :details
+end
