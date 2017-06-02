@@ -72,8 +72,8 @@ post '/post/:post_id' do
 	comment = params[:comment]
 	results = @db.execute "select * from Posts where id = ?",[post_id.to_i]
 	@row = results[0]
-
 	@comments = @db.execute "select * from Comments where post_id = ? order by id",[post_id.to_i]
+	
 	if comment.strip.empty?
 		@error = 'Type comment'
 		return erb :details

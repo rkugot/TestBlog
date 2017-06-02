@@ -7,9 +7,16 @@
 	<small class="pull-right">Added at <%= @row['created_date'] %></small>
 </p>
 <br />
-<h4>Comments:</h4>
 <p>
-<% @comments.each do |comment| %>
+	<form action="/post/<%= @row['id'] %>" method="POST">
+	  	<textarea name="comment" class="form-control" rows="6" placeholder="Type comment here" style="width: 800px"></textarea>
+	  	<br />
+	  	<button type="submit" class="btn btn-primary">Add comment</button>
+	</form>
+	<br />
+	<h4>Comments:</h4>
+	<br />
+	<% @comments.each do |comment| %>
 	<p>
 		<%= comment['content'] %>
 		<br />
@@ -18,9 +25,4 @@
 	</p>
 	<hr />
 <% end %>
-	<form action="/post/<%= @row['id'] %>" method="POST">
-	  	<textarea name="comment" class="form-control" rows="6" placeholder="Type comment here" style="width: 800px"></textarea>
-	  	<br />
-	  	<button type="submit" class="btn btn-primary">Add comment</button>
-	</form>
 </p>

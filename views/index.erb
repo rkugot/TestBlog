@@ -3,12 +3,13 @@
 
 <% @results.each do |post| %>
 	<p>
+		<span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>
 		<%= post['content'] %>
 		<br />
 		<br />
-		Added at <%= post['created_date'] %>
+		<small class="pull-right">Added at <%= post['created_date'] %></small>
 		<br />
-		<a href="/post/<%= post['id'] %>">Comments</a>
+		<small class="pull-right"><a href="/post/<%= post['id'] %>">Comments</a></small>
 	</p>
 	<hr />
 <% end %>
