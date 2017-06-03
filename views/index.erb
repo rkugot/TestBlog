@@ -4,6 +4,9 @@
 <% @results.each do |post| %>
 	<p>
 		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<em><%= post['username'] %></em>
+		<br />
+		<br />
 		<%= post['content'] %>
 		<br />
 		<br />
